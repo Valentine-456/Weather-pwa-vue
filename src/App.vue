@@ -1,32 +1,48 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <Navigation />
+    <Background />
+    <Menu />
     <router-view />
   </div>
 </template>
 
+<script>
+import Navigation from "@/components/Navigation";
+import Menu from "@/components/Menu";
+import Background from "@/components/Background";
+
+export default {
+  components: {
+    Navigation,
+    Background,
+    Menu
+  }
+};
+</script>
+
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+::selection {
+  background: transparent;
+  color: white;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  color: white;
+  width: 100vw;
+  max-width: 450px;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
 }
 </style>

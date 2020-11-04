@@ -1,30 +1,49 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Current from "../views/Current.vue";
+import DailyForecast from "../views/DailyForecast.vue";
+import TempInfo from "@/components/TempInfo";
+import WindInfo from "@/components/WindInfo";
+import CloudInfo from "@/components/CloudInfo";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home
+    redirect: "/current",
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
+    path: "/current/",
+    name: "Current",
+    redirect: "/current/temp",
+    component: Current,
+    children: [
+      {
+        path: "temp",
+        component: TempInfo,
+      },
+      {
+        path: "wind",
+        component: WindInfo,
+      },
+      {
+        path: "clouds",
+        component: CloudInfo,
+      },
+    ],
+  },
+  {
+    path: "/daily-forecast",
+    name: "DailyForecast",
+    component: DailyForecast,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
