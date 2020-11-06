@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
   name: "WeatherInfo",
@@ -31,11 +31,19 @@ export default {
     transitionName: "slide-left"
   }),
   computed: {
-    ...mapGetters("weather", ["locationCurrent"]),
+    locationCurrent() {
+      return this.$store.getters["weather/locationCurrent"];
+    },
     currentTime() {
-      return `${new Date(+this.locationCurrent.time).getUTCHours()}:${new Date(
-        +this.locationCurrent.time
-      ).getUTCMinutes()}`;
+      // return `${new Date(+this.locationCurrent.time).getUTCHours()}:${new Date(
+      //   +this.locationCurrent.time
+      // ).getUTCMinutes()}`;
+
+      let hours = new Date(+this.locationCurrent.time).getUTCHours();
+      if (hours < 10) hours = `0${hours}`;
+      let minutes = new Date(+this.locationCurrent.time).getUTCMinutes();
+      if (minutes < 10) minutes = `0${minutes}`;
+      return `${hours}:${minutes}`;
     }
   },
   watch: {

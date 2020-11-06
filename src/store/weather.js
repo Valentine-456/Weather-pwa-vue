@@ -1,7 +1,15 @@
 const weatherStore = {
   namespaced: "true",
   state: {
-    currentWeather: {},
+    currentWeather: {
+      weather: {},
+      temp: {},
+      wind: {},
+      clouds: {},
+      location: {
+        time: "1604650350693",
+      },
+    },
     dailyWeather: [],
   },
   getters: {
