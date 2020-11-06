@@ -59,7 +59,7 @@ const weatherStore = {
     },
     async fetchCurrentWeather({ commit }, cityName) {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=08a70a4c8c64f5877be1c38647556387&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${Token}&units=metric`
       );
       const data = await response.json();
 
