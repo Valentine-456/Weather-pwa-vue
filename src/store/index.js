@@ -1,11 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import weather from "./weather";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: {}
+  modules: { weather },
 });
+
+store.dispatch("initWeather", "kyiv");
+
+export default store;

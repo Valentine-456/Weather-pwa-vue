@@ -19,10 +19,10 @@ export default {
 </script>
 <style scoped>
 #current {
-  margin-top: 4vh;
+  margin-top: 2vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 86vh;
+  height: 88vh;
 }
 </style>

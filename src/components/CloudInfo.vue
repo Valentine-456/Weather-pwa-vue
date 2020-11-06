@@ -2,25 +2,30 @@
   <div class="flex">
     <div class="information">
       <span class="heading">Cloudiness</span>
-      <span>15%</span>
+      <span>{{cloudsCurrent.cloudiness}}%</span>
     </div>
     <div class="information">
       <span class="heading">Visibility</span>
-      <span class="wind-degree">5000m</span>
+      <span class="wind-degree">{{cloudsCurrent.visibility}}m</span>
     </div>
     <div class="information">
       <span class="heading">Humidity</span>
-      <span class="wind-degree">10%</span>
+      <span class="wind-degree">{{cloudsCurrent.humidity}}%</span>
     </div>
     <div class="information">
       <span class="heading">Pressure</span>
-      <span class="wind-degree">9</span>
+      <span class="wind-degree">{{cloudsCurrent.pressure}}hPa</span>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-  name: "CloudInfo"
+  name: "CloudInfo",
+  computed: {
+    ...mapGetters("weather", ["cloudsCurrent"])
+  }
 };
 </script>
 <style scoped>

@@ -6,8 +6,15 @@
       <div class="dash"></div>
     </div>
     <div @mouseleave="cityNameActive = false" class="nav-button">
-      <div @click="cityNameActive = !cityNameActive" class="search"></div>
-      <input type="text" class="city-name" :class="{'city-name-active': cityNameActive}" />
+      <div @click="openSearchBar" class="search"></div>
+      <input
+        id="cityName"
+        v-model="cityName"
+        type="text"
+        class="city-name"
+        @change="getWeather(cityName)"
+        :class="{'city-name-active': cityNameActive}"
+      />
     </div>
   </nav>
 </template>
@@ -15,8 +22,19 @@
 export default {
   name: "Navigation",
   data: () => ({
-    cityNameActive: false
-  })
+    cityNameActive: false,
+    cityName: ""
+  }),
+  methods: {
+    getWeather(cityName) {
+      this.$store.dispatch("initWeather", cityName);
+      this.cityName = "";
+    },
+    openSearchBar() {
+      this.cityNameActive = !this.cityNameActive;
+      document.getElementById("cityName").focus();
+    }
+  }
 };
 </script>
 
@@ -87,7 +105,7 @@ export default {
   background: none;
   border-radius: 15px;
   border: none;
-  background-color: rgba(30, 30, 30, 0.4);
+  background-color: rgba(50, 50, 50, 0.4);
   color: white;
   font-size: 1.5em;
   transition: clip-path 0.5s;

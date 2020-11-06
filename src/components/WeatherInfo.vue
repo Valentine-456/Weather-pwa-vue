@@ -1,7 +1,7 @@
 <template>
   <div class>
     <div class="info-title">
-      <span class="date">Monday</span>
+      <span class="date">{{currentTime}}</span>
       <div class="icons">
         <router-link to="/current/temp">
           <div class="icon icon-temp"></div>
@@ -15,12 +15,46 @@
       </div>
     </div>
     <div class="divider"></div>
-    <router-view></router-view>
+    <div class="container">
+      <transition :name="transitionName">
+        <router-view></router-view>
+      </transition>
+    </div>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-  name: "WeatherInfo"
+  name: "WeatherInfo",
+  data: () => ({
+    transitionName: "slide-left"
+  }),
+  computed: {
+    ...mapGetters("weather", ["locationCurrent"]),
+    currentTime() {
+      return `${new Date(+this.locationCurrent.time).getUTCHours()}:${new Date(
+        +this.locationCurrent.time
+      ).getUTCMinutes()}`;
+    }
+  },
+  watch: {
+    $route(to, from) {
+      const nextURL = to.path.split("/")[to.path.split("/").length - 1];
+      const prevURL = from.path.split("/")[from.path.split("/").length - 1];
+
+      if (nextURL === "wind") {
+        this.transitionName = "slide-left";
+      }
+      if (nextURL === "temp") {
+        this.transitionName = "slide-right";
+      }
+      if (nextURL === "clouds") {
+        this.transitionName = prevURL === "temp" ? "slide-left" : "slide-right";
+      }
+      // this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+    }
+  }
 };
 </script>
 <style scoped>
@@ -67,7 +101,25 @@ export default {
 }
 
 .container {
-  width: 90%;
-  margin: 5px auto;
+  height: 17vh;
+  overflow: hidden;
+}
+
+.slide-left-enter-active,
+.slide-right-enter-active {
+  transition: all 0.3s ease 0.1s;
+}
+.slide-left-leave-active,
+.slide-right-leave-active {
+  transition: all 0.3s ease;
+}
+.slide-left-enter,
+.slide-right-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-right-enter,
+.slide-left-leave-to {
+  transform: translateX(-100%);
 }
 </style>

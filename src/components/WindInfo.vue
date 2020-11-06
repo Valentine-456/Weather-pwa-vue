@@ -2,17 +2,25 @@
   <div class="flex">
     <div class="information">
       <span class="heading">Speed</span>
-      <span>36 km/h</span>
+      <span>{{windCurrent.speed}} km/h</span>
     </div>
     <div class="information">
       <span class="heading">Degree</span>
-      <span class="wind-degree"></span>
+      <span class="wind-degree" :style="windDegree"></span>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-  name: "WindInfo"
+  name: "WindInfo",
+  computed: {
+    ...mapGetters("weather", ["windCurrent"]),
+    windDegree() {
+      return `transform: rotate(${this.windCurrent.deg}deg);`;
+    }
+  }
 };
 </script>
 <style scoped>

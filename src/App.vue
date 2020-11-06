@@ -22,6 +22,8 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@300;400;700&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -33,7 +35,7 @@ export default {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arima Madurai, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -44,5 +46,6 @@ export default {
   margin: 0 auto;
   position: relative;
   box-sizing: border-box;
+  overflow: hidden;
 }
 </style>
