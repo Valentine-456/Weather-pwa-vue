@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Current from "../views/Current.vue";
-import DailyForecast from "../views/DailyForecast.vue";
+import Forecast from "../views/Forecast.vue";
+import About from "../views/About.vue";
 import TempInfo from "@/components/TempInfo";
 import WindInfo from "@/components/WindInfo";
 import CloudInfo from "@/components/CloudInfo";
@@ -34,10 +35,11 @@ const routes = [
     ],
   },
   {
-    path: "/daily-forecast",
-    name: "DailyForecast",
-    component: DailyForecast,
+    path: "/forecast",
+    name: "Forecast",
+    component: Forecast,
   },
+  { path: "/about", name: "About", component: About },
 ];
 
 const router = new VueRouter({

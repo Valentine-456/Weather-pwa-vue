@@ -3,7 +3,9 @@
     <Navigation />
     <Background />
     <Menu />
-    <router-view />
+    <transition :name="transitionName">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -13,10 +15,26 @@ import Menu from "@/components/Menu";
 import Background from "@/components/Background";
 
 export default {
+  data: () => ({
+    transitionName: "slideDown"
+  }),
   components: {
     Navigation,
     Background,
     Menu
+  },
+  watch: {
+    $route(to, from) {
+      const prevURL = from.path.split("/")[1];
+      const nextURL = to.path.split("/")[1];
+
+      if (nextURL === "current") this.transitionName = "slideUp";
+      if (nextURL === "about") this.transitionName = "slideDown";
+      if (nextURL === "forecast") {
+        if (prevURL === "current") this.transitionName = "slideDown";
+        if (prevURL === "about") this.transitionName = "slideUp";
+      }
+    }
   }
 };
 </script>
@@ -47,5 +65,24 @@ export default {
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
+  box-shadow: 0 0 5px #9accc8, 0 0 10px #9accc8, 0 0 15px #9accc8;
+}
+
+.slideUp-enter-active,
+.slideDown-enter-active {
+  transition: all 0.3s ease 0.2s;
+}
+.slideUp-leave-active,
+.slideDown-leave-active {
+  transition: all 0.3s ease;
+}
+.slideUp-enter,
+.slideDown-leave-to {
+  transform: translateY(-110vh);
+}
+
+.slideDown-enter,
+.slideUp-leave-to {
+  transform: translateY(110vh);
 }
 </style>

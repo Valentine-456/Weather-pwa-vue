@@ -1,6 +1,6 @@
 <template>
   <nav id="navigation">
-    <div class="nav-button">
+    <div @click="OPEN_MENU" class="nav-button menu-nav-button">
       <div class="dash"></div>
       <div class="dash dash-shortened"></div>
       <div class="dash"></div>
@@ -19,6 +19,8 @@
   </nav>
 </template>
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "Navigation",
   data: () => ({
@@ -26,8 +28,17 @@ export default {
     cityName: ""
   }),
   methods: {
+    ...mapMutations("menu", ["OPEN_MENU"]),
     getWeather(cityName) {
-      this.$store.dispatch("initWeather", cityName);
+      let search = cityName;
+      if (search.includes(";")) {
+        search = {
+          lat: +cityName.split(";")[0],
+          lon: +cityName.split(";")[1]
+        };
+      }
+      document.getElementById("cityName").blur();
+      this.$store.dispatch("initWeather", search);
       this.cityName = "";
     },
     openSearchBar() {
